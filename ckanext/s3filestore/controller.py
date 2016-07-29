@@ -12,6 +12,12 @@ from ckan.common import _, request, c, response
 
 from ckanext.s3filestore.uploader import S3Uploader
 
+# add
+from sqlalchemy import create_engine
+from sqlalchemy.sql import text
+from boto.s3.connection import S3Connection
+from boto.s3.key import Key
+
 import logging
 log = logging.getLogger(__name__)
 
@@ -138,4 +144,10 @@ class S3Controller(base.BaseController):
         redirect_url = 'https://{bucket_name}.s3.amazonaws.com/{filepath}' \
             .format(bucket_name=config.get('ckanext.s3filestore.aws_bucket_name'),
                     filepath=filepath)
+        redirect(redirect_url)
+
+
+    def resource_s3upload(self, id, resource_id, filename=None):
+
+        redirect_url = 'https://{bucket_name}.s3.amazonaws.com/'
         redirect(redirect_url)
